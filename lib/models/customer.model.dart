@@ -18,6 +18,26 @@ class Customer {
     required this.email,
     required this.dateOfBirth,
   });
+
+  factory Customer.fromJson(Map<String, dynamic> json) {
+    return Customer(
+      id: json['sqfliteId'] as int?,
+      name: json['name'] as String,
+      phone: json['phone'] as String,
+      email: json['email'] as String,
+      dateOfBirth: DateTime.parse(json['dateOfBirth'] as String),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'sqfliteId': id,
+      'name': name,
+      'phone': phone,
+      'email': email,
+      'dateOfBirth': dateOfBirth.toIso8601String(),
+    };
+  }
 }
 
 class CustomerModel {
@@ -47,8 +67,11 @@ class CustomerModel {
   Future<List<Customer>> list() async {
     Database sqfliteDB = await SqfliteRepository.instance.database;
 
-    List<Map<String, dynamic>> maps =
-        await sqfliteDB.query(SqfliteKeys.customerTable);
+    List<Map<String, dynamic>> maps = await sqfliteDB.query(
+      SqfliteKeys.customerTable,
+      where: '${SqfliteKeys.customerDeleted} = ?',
+      whereArgs: [0],
+    );
 
     return List.generate(maps.length, (i) {
       return Customer(

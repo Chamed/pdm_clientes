@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pdm_alfa/stores/counter.store.dart';
 import 'package:pdm_alfa/themes/dark.theme.dart';
 import 'package:pdm_alfa/views/home/home.view.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const Root());
@@ -11,16 +13,32 @@ class Root extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Clientes',
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.dark,
-      darkTheme: darkTheme,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: <Provider<dynamic>>[
+        Provider<CounterStore>.value(value: CounterStore()),
+      ],
+      child: MaterialApp(
+        title: 'Clientes',
+        debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.dark,
+        darkTheme: darkTheme,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const HomeView(),
       ),
-      home: const HomeView(),
     );
+    // return MaterialApp(
+    //   title: 'Clientes',
+    //   debugShowCheckedModeBanner: false,
+    //   themeMode: ThemeMode.dark,
+    //   darkTheme: darkTheme,
+    //   theme: ThemeData(
+    //     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    //     useMaterial3: true,
+    //   ),
+    //   home: const HomeView(),
+    // );
   }
 }

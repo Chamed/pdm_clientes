@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "126706863864",
+    "project_id": "pdm-alfa",
+    "storage_bucket": "pdm-alfa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126706863864:android:7767d6c6407d2db7da750d",
+        "android_client_info": {
+          "package_name": "com.chamed.pdmalfa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW1McPBBzsJEarxaHzgmOV6tFY91LkJtg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
