@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:pdm_alfa/repositories/isar/isar.repository.dart';
 import 'package:pdm_alfa/stores/counter.store.dart';
 import 'package:pdm_alfa/themes/dark.theme.dart';
 import 'package:pdm_alfa/views/home/home.view.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await IsarRepository.instance.init();
   runApp(const Root());
 }
 

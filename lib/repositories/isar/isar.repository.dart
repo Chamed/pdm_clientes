@@ -5,29 +5,25 @@ import 'package:path_provider/path_provider.dart';
 class IsarRepository {
   static final IsarRepository _instance = IsarRepository._internal();
 
-  Isar? _isar;
+  late Isar _isar;
 
   static IsarRepository get instance => _instance;
 
   IsarRepository._internal();
 
-  Future<void> _init() async {
+  Future<void> init() async {
     final dir = await getApplicationDocumentsDirectory();
 
-    if (_isar != null && !_isar!.isOpen) {
-      _isar = await Isar.open(
-        [CustomersCountSchema],
-        directory: dir.path,
-      );
-    }
+    _isar = await Isar.open(
+      [CustomersCountSchema],
+      directory: dir.path,
+    );
   }
 
   Future<void> incrementCustomerCounter() async {
-    await _init();
-
     late CustomersCount newCount;
     final CustomersCount? customerCount =
-        await _isar?.customersCounts.where().findFirst();
+        await _isar.customersCounts.where().findFirst();
 
     if (customerCount != null) {
       newCount = CustomersCount()
@@ -37,16 +33,14 @@ class IsarRepository {
       newCount = CustomersCount()..count = 1;
     }
 
-    await _isar?.writeTxn(() async {
-      await _isar?.customersCounts.put(newCount);
+    await _isar.writeTxn(() async {
+      await _isar.customersCounts.put(newCount);
     });
   }
 
   Future<int> getCurrentCustomerCounter() async {
-    await _init();
-
     final CustomersCount? customerCount =
-        await _isar?.customersCounts.where().findFirst();
+        await _isar.customersCounts.where().findFirst();
 
     return customerCount != null ? customerCount.count! : 0;
   }

@@ -20,7 +20,7 @@ class MongoRepository {
         allCustomers.map((customer) => customer.toJson()).toList();
 
     Response response = await dio.post(
-      'http://10.1.1.203:3333/customers',
+      'http://192.168.45.28:3333/customers',
       data: jsonData,
       options: Options(
         headers: {'Content-Type': 'application/json'},
@@ -30,7 +30,6 @@ class MongoRepository {
     if (response.statusCode == 200) {
       Map<String, dynamic> responseData = response.data;
 
-      print(response.data);
       if (responseData.containsKey('customersToAdd')) {
         List<Customer> customersToAdd = (responseData['customersToAdd'] as List)
             .map((json) => Customer.fromJson(json))
